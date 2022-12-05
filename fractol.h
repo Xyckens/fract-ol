@@ -28,6 +28,11 @@ typedef struct imaginary {
 t_complex	sqr(t_complex a);
 t_complex	add(t_complex a, t_complex b);
 
+typedef struct s_mlx {
+	void	*mlx;
+	void	*win;
+}			t_mlx;
+
 typedef struct	s_data {
 	void	*img;
 	char	*addr;
@@ -37,7 +42,24 @@ typedef struct	s_data {
 }				t_data;
 
 typedef	struct s_fractal {
+	void		*img;
+	void		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	void		*mlx;
+	void		*win;
+	int			width;
+	int			height;
+	t_complex	c;
+	double		zoom;
+	double		radius;
+	int			iterations;
+}				t_julia;
+
+/*typedef	struct s_fractal {
 	t_data		img;
+	t_mlx		mlx;
 	int			width;
 	int			height;
 	t_complex	c;
@@ -45,8 +67,37 @@ typedef	struct s_fractal {
 	int			iterations;
 }				t_julia;
 
-t_complex	mappoint(t_julia julia, int x, int y);
+typedef struct	s_fractol
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+	void		*img_ptr;
+	int			endian;
+	int			sl;
+	int			bpp;
+	int			fract;
+	int			color;
+	int			julia_mouse;
+	int			x;
+	int			y;
+	int			y_max;
+	int			it;
+	int			it_max;
+	int			show_text;
+	double		zoom;
+	double		x1;
+	double		y1;
+	double		c_r;
+	double		c_i;
+	double		z_r;
+	double		z_i;
+	double		tmp;
+}				t_fractol;*/
 
-void		juliaset(t_data *img, t_julia julia);
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+t_complex	mappoint(t_julia *julia, double x, double y);
+
+void		juliaset(t_julia *julia);
+int			my_mlx_pixel_put(t_julia *julia, int x, int y, int color);
+int			put_pxl_to_img(t_julia *julia, int x, int y, int color);
 #endif
