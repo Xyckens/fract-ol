@@ -12,15 +12,7 @@
 
 #include "fractol.h"
 
-int	put_pxl_to_img(t_julia *julia, int x, int y, int color)
-{
-	color = mlx_get_color_value(julia->mlx, color);
-	ft_memcpy(julia->addr + 4 * julia->width * y + x * 4,
-			&color, sizeof(int));
-	return (0);
-	
-}
-int	my_mlx_pixel_put(t_julia *julia, int x, int y, int color)
+int	my_mlx_pixel_put(t_fractal *julia, int x, int y, int color)
 {
 	char	*dst;
 
@@ -29,7 +21,7 @@ int	my_mlx_pixel_put(t_julia *julia, int x, int y, int color)
 	return (0);
 }
 
-void	juliaset(t_julia *julia)
+void	juliaset(t_fractal *julia)
 {
 	double			x;
 	double			y;
@@ -38,13 +30,11 @@ void	juliaset(t_julia *julia)
 	t_complex	z1;
 
 	x = 0;
-	while (x <= julia->width)
+	while (x++ <= julia->width)
 	{
 		y = 0;
-		//x= x *1/2;
-		while (y <= julia->height)
+		while (y++ <= julia->height)
 		{
-			//y= y *1/2;
 			z0 = mappoint(julia, x, y);
 			i = 1;
 			while (i++ <= julia->iterations)
@@ -52,15 +42,11 @@ void	juliaset(t_julia *julia)
 				z1 = add(sqr(z0), julia->c);
 				if (sqrt(z1.x * z1.x + z1.y * z1.y) > julia->radius)
 				{
-					my_mlx_pixel_put(julia, (int) x, (int)y, (0xccf1ff * i));
-					//mlx_pixel_put(julia->mlx, julia->win, x, y, (0xccf1ff * i));
-					//put_pxl_to_img(julia, x, y, (0xccf1ff * i));
+					my_mlx_pixel_put(julia, x, y, (0xccf1ff * i));
 					break ;
 				}
 				z0 = z1;
 			}
-			y++;
 		}
-		x++;
 	}
 }

@@ -20,6 +20,12 @@
 
 # define ESC 65307
 
+# define LEFT 65361
+# define UP 65362
+# define RIGHT 65363
+# define DOWN 65364
+# define R 114
+
 typedef struct imaginary {
 	double	x;
 	double	y;
@@ -28,20 +34,8 @@ typedef struct imaginary {
 t_complex	sqr(t_complex a);
 t_complex	add(t_complex a, t_complex b);
 
-typedef struct s_mlx {
-	void	*mlx;
-	void	*win;
-}			t_mlx;
-
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
 typedef	struct s_fractal {
+	char		*name;
 	void		*img;
 	void		*addr;
 	int			bits_per_pixel;
@@ -53,51 +47,18 @@ typedef	struct s_fractal {
 	int			height;
 	t_complex	c;
 	double		zoom;
+	double		x;
+	double		y;
+	double		xarrow;
+	double 		yarrow;
 	double		radius;
 	int			iterations;
-}				t_julia;
+}				t_fractal;
 
-/*typedef	struct s_fractal {
-	t_data		img;
-	t_mlx		mlx;
-	int			width;
-	int			height;
-	t_complex	c;
-	double		radius;
-	int			iterations;
-}				t_julia;
+t_complex	mappoint(t_fractal *julia, double x, double y);
 
-typedef struct	s_fractol
-{
-	void		*mlx;
-	void		*win;
-	void		*img;
-	void		*img_ptr;
-	int			endian;
-	int			sl;
-	int			bpp;
-	int			fract;
-	int			color;
-	int			julia_mouse;
-	int			x;
-	int			y;
-	int			y_max;
-	int			it;
-	int			it_max;
-	int			show_text;
-	double		zoom;
-	double		x1;
-	double		y1;
-	double		c_r;
-	double		c_i;
-	double		z_r;
-	double		z_i;
-	double		tmp;
-}				t_fractol;*/
-
-t_complex	mappoint(t_julia *julia, double x, double y);
-
-void		juliaset(t_julia *julia);
-int			my_mlx_pixel_put(t_julia *julia, int x, int y, int color);
-int			put_pxl_to_img(t_julia *julia, int x, int y, int color);
+void		juliaset(t_fractal *julia);
+void		mandelbrotset(t_fractal *mandel);
+int			my_mlx_pixel_put(t_fractal *julia, int x, int y, int color);
+int			put_pxl_to_img(t_fractal *julia, int x, int y, int color);
 #endif

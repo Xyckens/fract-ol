@@ -30,16 +30,18 @@ t_complex	sqr(t_complex a)
 	return (c);
 }
 
-t_complex	mappoint(t_julia *julia, double x, double y)
+t_complex	mappoint(t_fractal *fractal, double x, double y)
 {
 	t_complex	c;
 	int			l;
 
-	if (julia->width < julia->height)
-		l = julia->height;
+	if (fractal->width < fractal->height)
+		l = fractal->height * fractal->zoom;
 	else
-		l = julia->height;
-	c.x = 2 * julia->radius * (x - julia->width / 2) / l;
-	c.y = 2 * julia->radius * (y - julia->height / 2) / l;
+		l = fractal->height * fractal->zoom;
+	x += fractal->xarrow;
+	y += fractal->yarrow;
+	c.x = 2 * fractal->radius * (x - fractal->width * fractal->zoom / 2) / l ;
+	c.y = 2 * fractal->radius * (y - fractal->height * fractal->zoom / 2) / l ;
 	return (c);
 }
