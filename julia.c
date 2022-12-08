@@ -12,28 +12,29 @@
 
 #include "fractol.h"
 
-int	my_mlx_pixel_put(t_fractal *julia, int x, int y, int color)
+int	my_mlx_pixel_put(t_fractal *fractal, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = julia->addr + (y * julia->line_length + x * (julia->bits_per_pixel / 8));
+	dst = fractal->addr + (y * fractal->line_length + x
+			* (fractal->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 	return (0);
 }
 
 void	juliaset(t_fractal *julia)
 {
-	double			x;
-	double			y;
+	double		x;
+	double		y;
 	int			i;
 	t_complex	z0;
 	t_complex	z1;
 
 	x = 0;
-	while (x++ <= julia->width)
+	while (++x <= julia->width)
 	{
 		y = 0;
-		while (y++ <= julia->height)
+		while (++y <= julia->height)
 		{
 			z0 = mappoint(julia, x, y);
 			i = 1;

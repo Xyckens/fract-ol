@@ -25,6 +25,7 @@
 # define RIGHT 65363
 # define DOWN 65364
 # define R 114
+# define Z 122
 
 typedef struct imaginary {
 	double	x;
@@ -59,6 +60,17 @@ t_complex	mappoint(t_fractal *julia, double x, double y);
 
 void		juliaset(t_fractal *julia);
 void		mandelbrotset(t_fractal *mandel);
-int			my_mlx_pixel_put(t_fractal *julia, int x, int y, int color);
+int			my_mlx_pixel_put(t_fractal *fractal, int x, int y, int color);
 int			put_pxl_to_img(t_fractal *julia, int x, int y, int color);
+
+void		fractalsetup(t_fractal *fractal);
+
+void		mandelbrot_param(t_fractal *fractal);
+void		julia_param(t_fractal *fractal);
+
+void		ft_zoom(double x, double y, t_fractal *julia);
+void		ft_dezoom(double x, double y, t_fractal *julia);
+int			key_hook(int keycode, t_fractal *fractal);
+int			mouse_hook(int key_code, int x, int y, t_fractal *fractal);
+int			close_game(void);
 #endif
