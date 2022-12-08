@@ -24,26 +24,25 @@ int	my_mlx_pixel_put(t_fractal *fractal, int x, int y, int color)
 
 void	juliaset(t_fractal *julia)
 {
-	double		x;
-	double		y;
 	int			i;
 	t_complex	z0;
 	t_complex	z1;
 
-	x = 0;
-	while (++x <= julia->width)
+	julia->x = 0;
+	while (++julia->x <= julia->width)
 	{
-		y = 0;
-		while (++y <= julia->height)
+		julia->y = 0;
+		while (++julia->y <= julia->height)
 		{
-			z0 = mappoint(julia, x, y);
+			z0 = mappoint(julia, julia->x, julia->y);
 			i = 1;
 			while (i++ <= julia->iterations)
 			{
 				z1 = add(sqr(z0), julia->c);
 				if (sqrt(z1.x * z1.x + z1.y * z1.y) > julia->radius)
 				{
-					my_mlx_pixel_put(julia, x, y, (0xccf1ff * i));
+					my_mlx_pixel_put(julia, julia->x,
+						julia->y, julia->color * i);
 					break ;
 				}
 				z0 = z1;

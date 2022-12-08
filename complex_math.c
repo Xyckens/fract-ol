@@ -33,8 +33,7 @@ t_complex	sqr(t_complex a)
 t_complex	mappoint(t_fractal *fractal, double x, double y)
 {
 	t_complex	c;
-	int			l;
-
+	double		l;
 
 	if (fractal->width < fractal->height)
 		l = fractal->height * fractal->zoom;

@@ -25,27 +25,28 @@ void	fractalsetup(t_fractal *fractal)
 		juliaset(fractal);
 	else if (!ft_strncmp(fractal->name, "mandelbrot", 10))
 		mandelbrotset(fractal);
-	/*else if (!ft_strncmp(fractal.name, "burning", 7))
-		burningset(fractal);*/
+	else if (!ft_strncmp(fractal->name, "burning", 7))
+		burningset(fractal);
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 }
-
 
 int	main(int argc, char **argv)
 {
 	t_fractal		fractal;
 
-	fractal.name = argv[1];
+	if (argc == 2)
+		fractal.name = argv[1];
 	if (!ft_strncmp(fractal.name, "julia", 5))
 		julia_param(&fractal);
 	else if (!ft_strncmp(fractal.name, "mandelbrot", 10))
 		mandelbrot_param(&fractal);
-	/*else if (!ft_strncmp(fractal.name, "burning", 7))
-		burningparam(&fractal);*/
+	else if (!ft_strncmp(fractal.name, "burning", 7))
+		burning_param(&fractal);
 	else
 		return (0);
 	fractal.mlx = mlx_init();
-	fractal.win = mlx_new_window(fractal.mlx, fractal.width, fractal.height, "Julia Set");
+	fractal.win = mlx_new_window(fractal.mlx, fractal.width,
+			fractal.height, fractal.name);
 	fractalsetup(&fractal);
 	mlx_key_hook(fractal.win, key_hook, &fractal);
 	mlx_hook(fractal.win, 17, 1L << 17, close_game, NULL);

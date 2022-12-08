@@ -12,22 +12,20 @@
 
 #include "fractol.h"
 
-void	ft_zoom(double x, double y, t_fractal *julia)
+void	ft_zoom(double x, double y, t_fractal *fractal)
 {
-	julia->x = ((x / julia->zoom ) - (x / (julia->zoom * 1.3)));
-	julia->y = ((y / julia->zoom ) - (y / (julia->zoom * 1.3)));
-	julia->zoom *= 1.3;
-	julia->iterations++;
-	//printf("zoomed X:%f Y: %f\n", julia->c.x, julia->c.y);
+	fractal->x = (x / fractal->zoom) - (x / (fractal->zoom * 1.3));
+	fractal->y = (y / fractal->zoom) - (y / (fractal->zoom * 1.3));
+	fractal->zoom *= 1.3;
+	fractal->iterations++;
 }
 
-void	ft_dezoom(double x, double y, t_fractal *julia)
+void	ft_dezoom(double x, double y, t_fractal *fractal)
 {
-	julia->x = (x / julia->zoom ) - (x / (julia->zoom / 1.3));
-	julia->y = (y / julia->zoom ) - (y / (julia->zoom / 1.3));
-	julia->zoom /= 1.3;
-	julia->iterations--;
-	//printf("dezoomed X:%f Y: %f\n", julia->c.x, julia->c.y);
+	fractal->x = (x / fractal->zoom) - (x / (fractal->zoom / 1.3));
+	fractal->y = (y / fractal->zoom) - (y / (fractal->zoom / 1.3));
+	fractal->zoom /= 1.3;
+	fractal->iterations--;
 }
 
 int	close_game(void)
@@ -39,10 +37,7 @@ int	close_game(void)
 int	key_hook(int keycode, t_fractal *fractal)
 {
 	if (keycode == ESC)
-	{
-		ft_printf("\nESC was pressed! Turning off :(\n");
 		exit(EXIT_SUCCESS);
-	}	
 	else if (keycode == LEFT)
 		fractal->xarrow -= 30;
 	else if (keycode == DOWN)
@@ -51,18 +46,17 @@ int	key_hook(int keycode, t_fractal *fractal)
 		fractal->xarrow += 30;
 	else if (keycode == UP)
 		fractal->yarrow -= 30;
+	else if (keycode == PLUS)
+		fractal->color += 100;
+	else if (keycode == MINUS)
+		fractal->color -= 100;
 	else if (keycode == R)
 	{
-		ft_printf("Reset time!");
+		ft_printf("Reset time!\n");
 		julia_param(fractal);
 	}
 	else if (keycode == Z)
-	{
-		ft_printf("Zoom Reset!");
 		fractal->zoom = 1;
-		fractal->x = 0;
-		fractal->x = 0;
-	}
 	fractalsetup(fractal);
 	return (0);
 }
@@ -79,9 +73,8 @@ int	mouse_hook(int key_code, int x, int y, t_fractal *fractal)
 		ft_zoom(((double) x / fractal->width * 1000 - 500),
 			((double) y / fractal->height * 1000 - 500), fractal);
 	else if (key_code == 5)
-		ft_dezoom(((double) x / fractal->width * 1000 - 500), 
+		ft_dezoom(((double) x / fractal->width * 1000 - 500),
 			((double) y / fractal->height * 1000 - 500), fractal);
 	fractalsetup(fractal);
-	//printf("\nX:%f Y: %f\n", fractal->c.x, fractal->c.y);
 	return (0);
 }
