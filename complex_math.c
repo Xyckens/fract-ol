@@ -38,7 +38,7 @@ t_complex	mappoint(t_fractal *fractal, double x, double y)
 	if (fractal->width < fractal->height)
 		l = fractal->height * fractal->zoom;
 	else
-		l = fractal->height * fractal->zoom;
+		l = fractal->width * fractal->zoom;
 	x += fractal->xarrow ;
 	y += fractal->yarrow ;
 	c.x = 2 * fractal->radius * (x - fractal->width / 2) / l;

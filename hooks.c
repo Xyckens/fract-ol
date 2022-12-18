@@ -28,8 +28,9 @@ void	ft_dezoom(double x, double y, t_fractal *fractal)
 	fractal->iterations--;
 }
 
-int	close_game(void)
+int	close_game(t_fractal *fractal)
 {
+	freeall(fractal);
 	exit(EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
@@ -37,7 +38,7 @@ int	close_game(void)
 int	key_hook(int keycode, t_fractal *fractal)
 {
 	if (keycode == ESC)
-		exit(EXIT_SUCCESS);
+		close_game(fractal);
 	else if (keycode == LEFT)
 		fractal->xarrow -= 30;
 	else if (keycode == DOWN)
@@ -53,11 +54,12 @@ int	key_hook(int keycode, t_fractal *fractal)
 	else if (keycode == R)
 	{
 		ft_printf("Reset time!\n");
-		julia_param(fractal);
+		julia_param(fractal, fractal->name);
 	}
 	else if (keycode == Z)
 		fractal->zoom = 1;
-	fractalsetup(fractal);
+	if (keycode != ESC)
+		fractalsetup(fractal);
 	return (0);
 }
 

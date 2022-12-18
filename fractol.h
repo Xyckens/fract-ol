@@ -37,7 +37,7 @@ typedef struct imaginary {
 t_complex	sqr(t_complex a);
 t_complex	add(t_complex a, t_complex b);
 
-typedef	struct s_fractal {
+typedef struct s_fractal {
 	char		*name;
 	void		*img;
 	void		*addr;
@@ -53,7 +53,7 @@ typedef	struct s_fractal {
 	double		x;
 	double		y;
 	double		xarrow;
-	double 		yarrow;
+	double		yarrow;
 	double		radius;
 	int			iterations;
 	int			color;
@@ -67,16 +67,17 @@ void		burningset(t_fractal *burning);
 
 int			my_mlx_pixel_put(t_fractal *fractal, int x, int y, int color);
 
-
 void		fractalsetup(t_fractal *fractal);
 
-void		mandelbrot_param(t_fractal *fractal);
-void		julia_param(t_fractal *fractal);
-void		burning_param(t_fractal *fractal);
+void		mandelbrot_param(t_fractal *fractal, char *name);
+void		julia_param(t_fractal *fractal, char *name);
+void		burning_param(t_fractal *fractal, char *name);
 
 void		ft_zoom(double x, double y, t_fractal *fractal);
 void		ft_dezoom(double x, double y, t_fractal *fractal);
 int			key_hook(int keycode, t_fractal *fractal);
 int			mouse_hook(int key_code, int x, int y, t_fractal *fractal);
-int			close_game(void);
+int			close_game(t_fractal *fractal);
+
+int			freeall(t_fractal *fractal);
 #endif

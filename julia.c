@@ -39,7 +39,7 @@ void	juliaset(t_fractal *julia)
 			while (i++ <= julia->iterations)
 			{
 				z1 = add(sqr(z0), julia->c);
-				if (sqrt(z1.x * z1.x + z1.y * z1.y) > julia->radius)
+				if (z1.x * z1.x + z1.y * z1.y > julia->radius * julia->radius)
 				{
 					my_mlx_pixel_put(julia, julia->x,
 						julia->y, julia->color * i);

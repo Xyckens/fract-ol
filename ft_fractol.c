@@ -11,13 +11,10 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-/* 
-cc ./libft/ft_strncmp.c ./libft/ft_printf.c ./libft/ft_putchar_fd_.c ./libft/ft_putstr_fd_.c ./libft/ft_print_pointer_fd.c ./libft/ft_putnbr_fd_.c ./libft/ft_putnbr_hex_fd.c ./libft/ft_putlongnbr_fd.c ./libft/ft_itoa.c *.h *.c -L ./minilibx-linux -lmlx -Ilmlx -lXext -lX11 -lm && ./a.out julia
-
-*/
 
 void	fractalsetup(t_fractal *fractal)
 {
+	mlx_destroy_image(fractal->mlx, fractal->img);
 	fractal->img = mlx_new_image(fractal->mlx, fractal->width, fractal->height);
 	fractal->addr = mlx_get_data_addr(fractal->img, &fractal->bits_per_pixel,
 			&fractal->line_length, &fractal->endian);
@@ -30,27 +27,46 @@ void	fractalsetup(t_fractal *fractal)
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 }
 
+void	wronginputs(void)
+{
+	ft_printf("Unrecognized input!!! \nThis program only takes the ");
+	ft_printf("parameters: \'julia\', \'mandelbrot\' or ");
+	ft_printf("\'burning\' to display any of these fractal types!");
+	exit(1);
+}
+
+int	freeall(t_fractal *fractal)
+{
+	mlx_destroy_image(fractal->mlx, fractal->img);
+	mlx_destroy_window(fractal->mlx, fractal->win);
+	mlx_destroy_display(fractal->mlx);
+	free(fractal->mlx);
+	exit(0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_fractal		fractal;
 
 	if (argc == 2)
-		fractal.name = argv[1];
-	if (!ft_strncmp(fractal.name, "julia", 5))
-		julia_param(&fractal);
-	else if (!ft_strncmp(fractal.name, "mandelbrot", 10))
-		mandelbrot_param(&fractal);
-	else if (!ft_strncmp(fractal.name, "burning", 7))
-		burning_param(&fractal);
+	{
+		if (!ft_strncmp(argv[1], "mandelbrot", 10) && ft_strlen(argv[1]) == 10)
+			mandelbrot_param(&fractal, argv[1]);
+		else if (!ft_strncmp(argv[1], "julia", 5) && ft_strlen(argv[1]) == 5)
+			julia_param(&fractal, argv[1]);
+		else if (!ft_strncmp(argv[1], "burning", 7) && ft_strlen(argv[1]) == 7)
+			burning_param(&fractal, argv[1]);
+		fractal.mlx = mlx_init();
+		fractal.win = mlx_new_window(fractal.mlx, fractal.width,
+				fractal.height, fractal.name);
+		fractal.img = mlx_new_image(fractal.mlx, fractal.width, fractal.height);
+		fractalsetup(&fractal);
+		mlx_key_hook(fractal.win, key_hook, &fractal);
+		mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
+		mlx_hook(fractal.win, 17, 1L << 17, close_game, &fractal);
+		mlx_loop(fractal.mlx);
+	}
 	else
-		return (0);
-	fractal.mlx = mlx_init();
-	fractal.win = mlx_new_window(fractal.mlx, fractal.width,
-			fractal.height, fractal.name);
-	fractalsetup(&fractal);
-	mlx_key_hook(fractal.win, key_hook, &fractal);
-	mlx_hook(fractal.win, 17, 1L << 17, close_game, NULL);
-	mlx_mouse_hook(fractal.win, mouse_hook, &fractal);
-	mlx_loop(fractal.mlx);
+		wronginputs();
 	return (0);
 }

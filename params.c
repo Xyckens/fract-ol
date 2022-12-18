@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	mandelbrot_param(t_fractal *fractal)
+void	mandelbrot_param(t_fractal *fractal, char *name)
 {
 	fractal->width = 1280;
 	fractal->height = 720;
@@ -21,11 +21,12 @@ void	mandelbrot_param(t_fractal *fractal)
 	fractal->x = 0;
 	fractal->y = 0;
 	fractal->xarrow = 0;
-	fractal->yarrow = 0;
+	fractal->yarrow = 270;
 	fractal->color = 0xccf1ff;
+	fractal->name = name;
 }
 
-void	julia_param(t_fractal *fractal)
+void	julia_param(t_fractal *fractal, char *name)
 {
 	fractal->width = 1280;
 	fractal->height = 720;
@@ -39,9 +40,10 @@ void	julia_param(t_fractal *fractal)
 	fractal->xarrow = 0;
 	fractal->yarrow = 0;
 	fractal->color = 0xccf1ff;
+	fractal->name = name;
 }
 
-void	burning_param(t_fractal *fractal)
+void	burning_param(t_fractal *fractal, char *name)
 {
 	fractal->width = 1280;
 	fractal->height = 720;
@@ -52,4 +54,5 @@ void	burning_param(t_fractal *fractal)
 	fractal->xarrow = 1710.0;
 	fractal->yarrow = 4530.0;
 	fractal->color = 0xccf1ff;
+	fractal->name = name;
 }
