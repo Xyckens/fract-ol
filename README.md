@@ -1,5 +1,5 @@
-# fract-ol 
-Fract-ol project developed by me for 42 in a Ubuntu environment.
+# FRACT-OL 
+Fract-ol project developed for the 42School in a Ubuntu environment.
 In the mandatory part we need to present the Julia and Mandelbrot Fractal Sets. 
 ![Julia Set Fractal](https://user-images.githubusercontent.com/53185699/212414778-16072951-224e-48be-bcec-8b60590ccc1e.png)
 ![Mandelbrot Set Fractal](https://user-images.githubusercontent.com/53185699/212414859-cf0b3d61-0881-4420-8696-48cc9569d244.png)
