@@ -6,7 +6,7 @@
 #    By: fvieira <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/28 17:05:55 by fvieira           #+#    #+#              #
-#    Updated: 2022/12/10 17:08:54 by fvieira          ###   ########.fr        #
+#    Updated: 2023/01/23 14:34:39 by fvieira          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC = ft_fractol.c \
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(SRC:.c=.o)
 	$(MAKE) --no-print-directory -C ./libft
 	echo "\033[1m LIBFT done \033[0m"
 	$(MAKE) --no-print-directory -C ./minilibx-linux
@@ -39,7 +39,7 @@ $(NAME): $(OBJ)
 
 clean:
 	$(MAKE) clean -C ./libft
-	rm -rf $(NAME)
+	rm -rf $(SRC:.c=.o)
 	echo "OBJ deleted"
 
 fclean: clean
